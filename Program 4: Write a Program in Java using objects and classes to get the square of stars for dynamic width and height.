@@ -1,0 +1,29 @@
+import java.util.Scanner;
+
+class SquareStars {
+
+    int width, height;
+
+    void input() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter width: ");
+        width = sc.nextInt();
+        System.out.print("Enter height: ");
+        height = sc.nextInt();
+    }
+
+    void printSquare() {
+        for (int i = 1; i <= height; i++) {
+            for (int j = 1; j <= width; j++) {
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        SquareStars obj = new SquareStars();
+        obj.input();
+        obj.printSquare();
+    }
+}
