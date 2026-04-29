@@ -1,0 +1,41 @@
+class PrintOneToHundred {
+    void display() {
+        System. out.println("Printing 1 to 100:");
+        for (int i = 1; i <= 100; i++) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+    }
+}
+
+class PrintHundredToOne {
+    void display() {
+        System. out.println("Printing 100 to 1:");
+        for (int i = 100; i >= 1; i--) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+    }
+}
+
+class PrintOneToHundredAgain {
+    void display() {
+        System. out.println("Printing 1 to 100 again:");
+        for (int i = 1; i <= 100; i++) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        PrintOneToHundred obj1 = new PrintOneToHundred();
+        PrintHundredToOne obj2 = new PrintHundredToOne();
+        PrintOneToHundredAgain obj3 = new PrintOneToHundredAgain();
+
+        obj1.display();
+        obj2.display();
+        obj3.display();
+    }
+}
