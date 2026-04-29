@@ -1,0 +1,50 @@
+import java.util.Scanner;
+
+class Distance {
+    int meters;
+    int centimeters;
+    int millimeters;
+
+    void input() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter meters: ");
+        meters = sc.nextInt();
+        System.out.print("Enter centimeters: ");
+        centimeters = sc.nextInt();
+        System.out.print("Enter millimeters: ");
+        millimeters = sc.nextInt();
+    }
+
+    Distance add(Distance d) {
+        Distance sum = new Distance();
+
+        sum.millimeters = this.millimeters + d.millimeters;
+        sum.centimeters = this.centimeters + d.centimeters + sum.millimeters / 10; // 10 mm = 1 cm
+        sum.millimeters = sum.millimeters % 10;
+
+        sum.meters = this.meters + d.meters + sum.centimeters / 100; // 100 cm = 1 m
+        sum.centimeters = sum.centimeters % 100;
+
+        return sum;
+    }
+
+    void display() {
+        System.out.println("Distance = " + meters + " meters, " + centimeters + " centimeters, and " + millimeters + " millimeters");
+    }
+
+    public static void main(String[] args) {
+        Distance d1 = new Distance();
+        Distance d2 = new Distance();
+
+        System.out.println("Enter first distance:");
+        d1.input();
+
+        System.out.println("Enter second distance:");
+        d2.input();
+
+        Distance sum = d1.add(d2);
+
+        System.out.print("Sum of distances: ");
+        sum.display();
+    }
+}
