@@ -1,0 +1,94 @@
+import javax.swing.*;
+import java.awt.event.*;
+
+public class Main extends JFrame implements ActionListener {
+
+    JTextField a11, a12, a21, a22;
+    JTextField b11, b12, b21, b22;
+    JTextField r11, r12, r21, r22;
+    JButton addBtn, clearBtn;
+
+    Main() {
+        setTitle("Matrix Addition (2x2)");
+        setSize(420, 320);
+        setLayout(null);
+
+        JLabel la = new JLabel("Matrix A");
+        la.setBounds(60, 10, 100, 20);
+        add(la);
+
+        a11 = new JTextField(); a11.setBounds(40, 40, 50, 30);
+        a12 = new JTextField(); a12.setBounds(100, 40, 50, 30);
+        a21 = new JTextField(); a21.setBounds(40, 80, 50, 30);
+        a22 = new JTextField(); a22.setBounds(100, 80, 50, 30);
+
+        JLabel lb = new JLabel("Matrix B");
+        lb.setBounds(250, 10, 100, 20);
+        add(lb);
+
+        b11 = new JTextField(); b11.setBounds(230, 40, 50, 30);
+        b12 = new JTextField(); b12.setBounds(290, 40, 50, 30);
+        b21 = new JTextField(); b21.setBounds(230, 80, 50, 30);
+        b22 = new JTextField(); b22.setBounds(290, 80, 50, 30);
+
+        JLabel lr = new JLabel("Result");
+        lr.setBounds(150, 120, 100, 20);
+        add(lr);
+
+        r11 = new JTextField(); r11.setBounds(120, 150, 50, 30); r11.setEditable(false);
+        r12 = new JTextField(); r12.setBounds(180, 150, 50, 30); r12.setEditable(false);
+        r21 = new JTextField(); r21.setBounds(120, 190, 50, 30); r21.setEditable(false);
+        r22 = new JTextField(); r22.setBounds(180, 190, 50, 30); r22.setEditable(false);
+
+        addBtn = new JButton("Add");
+        clearBtn = new JButton("Clear");
+        addBtn.setBounds(90, 240, 80, 30);
+        clearBtn.setBounds(200, 240, 80, 30);
+
+        addBtn.addActionListener(this);
+        clearBtn.addActionListener(this);
+
+        add(a11); add(a12); add(a21); add(a22);
+        add(b11); add(b12); add(b21); add(b22);
+        add(r11); add(r12); add(r21); add(r22);
+        add(addBtn); add(clearBtn);
+
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == addBtn) {
+            try {
+                int A11 = Integer.parseInt(a11.getText());
+                int A12 = Integer.parseInt(a12.getText());
+                int A21 = Integer.parseInt(a21.getText());
+                int A22 = Integer.parseInt(a22.getText());
+
+                int B11 = Integer.parseInt(b11.getText());
+                int B12 = Integer.parseInt(b12.getText());
+                int B21 = Integer.parseInt(b21.getText());
+                int B22 = Integer.parseInt(b22.getText());
+
+                r11.setText(String.valueOf(A11 + B11));
+                r12.setText(String.valueOf(A12 + B12));
+                r21.setText(String.valueOf(A21 + B21));
+                r22.setText(String.valueOf(A22 + B22));
+
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Enter valid integers");
+            }
+        }
+
+        if (e.getSource() == clearBtn) {
+            JTextField[] fields = {
+                a11,a12,a21,a22, b11,b12,b21,b22, r11,r12,r21,r22
+            };
+            for (JTextField f: fields) f.setText("");
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new Main());
+    }
+}
