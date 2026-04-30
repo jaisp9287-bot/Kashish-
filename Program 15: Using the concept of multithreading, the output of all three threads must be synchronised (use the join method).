@@ -1,0 +1,54 @@
+class ThreadOne extends Thread {
+    public void run() {
+        System. out.println("Thread 1: Printing 1 to 100");
+        for (int i = 1; i <= 100; i++) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+    }
+}
+
+class ThreadTwo extends Thread {
+    public void run() {
+        System. out.println("Thread 2: Printing 100 to 1");
+        for (int i = 100; i >= 1; i--) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+    }
+}
+
+class ThreadThree extends Thread {
+    public void run() {
+        System. out.println("Thread 3: Printing 1 to 100");
+        for (int i = 1; i <= 100; i++) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        ThreadOne t1 = new ThreadOne();
+        ThreadTwo t2 = new ThreadTwo();
+        ThreadThree t3 = new ThreadThree();
+
+        try {
+            t1.start();
+            t1.join();   
+
+            t2.start();
+            t2.join();  
+
+            t3.start();
+            t3.join();  
+
+        } catch (InterruptedException e) {
+            System. out.println("Exception: " + e);
+        }
+
+    }
+}
+
