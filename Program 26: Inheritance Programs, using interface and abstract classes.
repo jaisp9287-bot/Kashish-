@@ -1,0 +1,30 @@
+interface Printer {
+    void print();
+}
+
+abstract class Device {
+    abstract void start();
+
+    void stop() {
+        System.out.println("Device stopped");
+    }
+}
+
+class Computer extends Device implements Printer {
+    void start() {
+        System. out.println("Computer started");
+    }
+
+    public void print() {
+        System.out.println("Printing from computer");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Computer c = new Computer();
+        c.start();
+        c.print();
+        c.stop();
+    }
+}
