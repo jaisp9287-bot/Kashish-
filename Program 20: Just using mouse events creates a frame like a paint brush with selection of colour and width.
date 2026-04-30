@@ -1,0 +1,129 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+
+class DrawPoint {
+    int x, y, size;
+    Color color;
+
+    DrawPoint(int x, int y, Color color, int size) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.size = size;
+    }
+}
+
+class PaintPanel extends JPanel implements MouseMotionListener {
+    ArrayList<DrawPoint> points = new ArrayList<>();
+    Color currentColor = Color.BLACK;
+    int brushSize = 5;
+
+    PaintPanel() {
+        setBackground(Color.WHITE);
+        addMouseMotionListener(this);
+    }
+
+    public void setCurrentColor(Color c) {
+        currentColor = c;
+    }
+
+    public void setBrushSize(int size) {
+        brushSize = size;
+    }
+
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        for (DrawPoint p: points) {
+            g.setColor(p.color);
+            g.fillOval(p.x, p.y, p.size, p.size);
+        }
+    }
+
+    public void mouseDragged(MouseEvent e) {
+        points.add(new DrawPoint(e.getX(), e.getY(), currentColor, brushSize));
+        repaint();
+    }
+
+    public void mouseMoved(MouseEvent e) {
+    }
+
+    public void clearCanvas() {
+        points.clear();
+        repaint();
+    }
+}
+
+//Main
+
+public class Main extends JFrame implements ActionListener {
+    JButton redBtn, blueBtn, greenBtn, blackBtn, clearBtn;
+    JComboBox<String> widthBox;
+    PaintPanel panel;
+
+    Main() {
+        setTitle("Paint Brush Program");
+        setSize(800, 600);
+        setLayout(null);
+
+        redBtn = new JButton("Red");
+        blueBtn = new JButton("Blue");
+        greenBtn = new JButton("Green");
+        blackBtn = new JButton("Black");
+        clearBtn = new JButton("Clear");
+
+        String widths[] = {"5", "10", "15", "20", "25"};
+        widthBox = new JComboBox<>(widths);
+
+        redBtn.setBounds(20, 20, 80, 30);
+        blueBtn.setBounds(110, 20, 80, 30);
+        greenBtn.setBounds(200, 20, 80, 30);
+        blackBtn.setBounds(290, 20, 80, 30);
+        clearBtn.setBounds(380, 20, 80, 30);
+        widthBox.setBounds(480, 20, 80, 30);
+
+        redBtn.addActionListener(this);
+        blueBtn.addActionListener(this);
+        greenBtn.addActionListener(this);
+        blackBtn.addActionListener(this);
+        clearBtn.addActionListener(this);
+        widthBox.addActionListener(this);
+
+        add(redBtn);
+        add(blueBtn);
+        add(greenBtn);
+        add(blackBtn);
+        add(clearBtn);
+        add(widthBox);
+
+        panel = new PaintPanel();
+        panel.setBounds(20, 70, 740, 470);
+        add(panel);
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == redBtn) {
+            panel.setCurrentColor(Color.RED);
+        } else if (e.getSource() == blueBtn) {
+            panel.setCurrentColor(Color.BLUE);
+        } else if (e.getSource() == greenBtn) {
+            panel.setCurrentColor(Color.GREEN);
+        } else if (e.getSource() == blackBtn) {
+            panel.setCurrentColor(Color.BLACK);
+        } else if (e.getSource() == clearBtn) {
+            panel.clearCanvas();
+        } else if (e.getSource() == widthBox) {
+            int size = Integer.parseInt((String) widthBox.getSelectedItem());
+            panel.setBrushSize(size);
+        }
+    }
+
+    public static void main(String[] args) {
+        new Main();
+    }
+}
