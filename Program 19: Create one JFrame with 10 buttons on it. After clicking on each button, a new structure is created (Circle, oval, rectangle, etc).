@@ -1,0 +1,100 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+class ShapePanel extends JPanel {
+    String shape = "";
+
+    public void setShape(String shape) {
+        this.shape = shape;
+        repaint();
+    }
+
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        if (shape.equals("Line")) {
+            g.drawLine(50, 50, 200, 50);
+        } 
+        else if (shape.equals("Rectangle")) {
+            g.drawRect(50, 50, 120, 80);
+        } 
+        else if (shape.equals("Square")) {
+            g.drawRect(50, 50, 100, 100);
+        } 
+        else if (shape.equals("Oval")) {
+            g.drawOval(50, 50, 150, 100);
+        } 
+        else if (shape.equals("Circle")) {
+            g.drawOval(50, 50, 100, 100);
+        } 
+        else if (shape.equals("RoundRect")) {
+            g.drawRoundRect(50, 50, 150, 100, 30, 30);
+        } 
+        else if (shape.equals("Arc")) {
+            g.drawArc(50, 50, 150, 100, 0, 180);
+        } 
+        else if (shape.equals("Triangle")) {
+            int x[] = {100, 50, 150};
+            int y[] = {50, 150, 150};
+            g.drawPolygon(x, y, 3);
+        } 
+        else if (shape.equals("Polygon")) {
+            int x[] = {100, 150, 130, 70, 50};
+            int y[] = {50, 90, 150, 150, 90};
+            g.drawPolygon(x, y, 5);
+        } 
+        else if (shape.equals("Clear")) {
+        }
+    }
+}
+
+public class Main extends JFrame implements ActionListener {
+    JButton b1, b2, b3, b4, b5, b6, b7, b8, b9, b10;
+    ShapePanel panel;
+
+    Main() {
+        setTitle("Shapes using 10 Buttons");
+        setSize(700, 500);
+        setLayout(null);
+
+        panel = new ShapePanel();
+        panel.setBounds(200, 30, 450, 400);
+        panel.setBackground(Color.WHITE);
+
+        b1 = new JButton("Line");
+        b2 = new JButton("Rectangle");
+        b3 = new JButton("Square");
+        b4 = new JButton("Oval");
+        b5 = new JButton("Circle");
+        b6 = new JButton("RoundRect");
+        b7 = new JButton("Arc");
+        b8 = new JButton("Triangle");
+        b9 = new JButton("Polygon");
+        b10 = new JButton("Clear");
+
+        JButton[] buttons = {b1, b2, b3, b4, b5, b6, b7, b8, b9, b10};
+
+        int y = 30;
+        for (JButton b: buttons) {
+            b.setBounds(30, y, 130, 30);
+            b.addActionListener(this);
+            add(b);
+            y += 35;
+        }
+
+        add(panel);
+
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        String cmd = e.getActionCommand();
+        panel.setShape(cmd);
+    }
+
+    public static void main(String[] args) {
+        new Main();
+    }
+}
